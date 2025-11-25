@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENNA</title>
+    <link rel="stylesheet" href="/CSS/stile.css">
+     <link rel="shortcut icon" href="/MEDIA/IMG/LOGOSENA.png" />
+</head>
+
+<body>
+    <header class="banner">
+        <a href="/HTML/principal.HTML" class="banner-left">
+            <img src="/MEDIA/IMG/LOGOSENA.png" alt="icono del sena" class="logo">
+            <span class="banner-text">Intranet Hacienda</span>
+        </a>
+
+        <nav class="banner-right">
+            <section id="options-section">
+                <label for="optionsSelect">Áreas</label>
+                <select id="optionsSelect" onchange="redirigir(this.value)">
+                    <option value="">-- Selecciona --</option>
+                    <option value="/HTML/lab.HTML">Laboratorio</option>
+                </select>
+            </section>
+
+            <button class="login-btn" onclick="window.location.href='/HTML/login.HTML'">
+                Inicio de sesión
+            </button>
+        </nav>
+    </header>
+
+    <section class="intro-text">
+        <h1 class="FRASE">
+            La Hacienda La Uirbe es un núcleo agroindustrial sostenible y estratégico de innovación rural.
+            Un sistema productivo integral con enfoque sostenible, que se consolida como centro de gestión
+            agroindustrial y desarrollo rural, y como modelo eficiente de producción agrícola y administración
+            territorial.
+        </h1>
+    </section>
+
+    <section class="imagens">
+        <div class="bgbg">
+            <img src="/MEDIA/IMG/bg.png" alt="fondo decorativo">
+        </div>
+
+        <div class="person">
+            <img src="/MEDIA/IMG/girl0.png" alt="persona representativa">
+        </div>
+
+        <h2 class="section-title">Infraestructura y Áreas de Producción</h2>
+        <p class="FRASE0">
+            La Hacienda La Uribe dispone de áreas de cultivo, investigación y desarrollo sostenible, integrando
+            espacios productivos que fortalecen la gestión agroindustrial y la formación técnica. Sus instalaciones
+            se consolidan como un entorno estratégico para la innovación rural y la administración territorial,
+            promoviendo eficiencia y sostenibilidad en cada proceso.
+        </p>
+    </section>
+
+    <section class="carrusel">
+        <button class="prev">⟨</button>
+        <img id="carrusel-img" src="/MEDIA/CARRUSEL/1.jpg" alt="carrusel">
+        <button class="next">⟩</button>
+    </section>
+
+
+<footer class="footer-banner">
+    <span class="footer-text">© 2025 Intranet Hacienda | Desarrollado por Hanna</span>
+</footer>
+
+
+    <script>
+        const imagenes = [
+            "/MEDIA/CARRUSEL/1.jpg",
+            "/MEDIA/CARRUSEL/2.jpg",
+            "/MEDIA/CARRUSEL/3.jpg",
+            "/MEDIA/CARRUSEL/4.jpg"
+        ];
+
+        let indice = 0;
+        const carruselImg = document.getElementById("carrusel-img");
+        const prevBtn = document.querySelector(".prev");
+        const nextBtn = document.querySelector(".next");
+
+        function mostrarImagen(index, direccion = "next") {
+            carruselImg.style.opacity = "0";
+            carruselImg.style.transform = direccion === "next" ? "translateX(100%)" : "translateX(-100%)";
+
+            setTimeout(() => {
+                carruselImg.src = imagenes[index];
+                carruselImg.style.opacity = "1";
+                carruselImg.style.transform = "translateX(0)";
+            }, 400);
+        }
+
+        prevBtn.addEventListener("click", () => {
+            indice = (indice - 1 + imagenes.length) % imagenes.length;
+            mostrarImagen(indice, "prev");
+        });
+
+        nextBtn.addEventListener("click", () => {
+            indice = (indice + 1) % imagenes.length;
+            mostrarImagen(indice, "next");
+        });
+
+        function redirigir(valor) {
+            if (valor) {
+                window.location.href = valor;
+            }
+        }
+    </script>
+</body>
+
+</html>

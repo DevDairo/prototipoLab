@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Uso de Equipo - Funcional</title>
+</head>
+<body>
+
+<div id="registro-equipo-container">
+    <div style="text-align: center;">
+        <p><strong>LABORATORIO DE SERVICIOS AMBIENTALES Y AGROPECUARIOS CYPSA</strong></p>
+        <p><strong>REGISTRO DE USO DE EQUIPO</strong></p>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; font-size: 0.9em; margin-bottom: 10px;">
+        <table border="1" style="width: 300px; border-collapse: collapse;">
+            <tr>
+                <td style="width: 30%;"><label for="codigo_equipo_header">Código Equipo:</label></td>
+                <td><input type="text" id="codigo_equipo_header" name="codigo_equipo_header" placeholder="EJ-057" style="width: 90%; border: none;"></td>
+            </tr>
+            <tr>
+                <td><label for="fecha_edicion_header">Fecha de Edición:</label></td>
+                <td><input type="date" id="fecha_edicion_header" name="fecha_edicion_header" style="width: 90%; border: none;"></td>
+            </tr>
+            <tr>
+                <td><label for="revision_header">Revisión:</label></td>
+                <td><input type="text" id="revision_header" name="revision_header" placeholder="Rev. 01" style="width: 90%; border: none;"></td>
+            </tr>
+        </table>
+    </div>
+
+    <form>
+        <table border="1" width="100%" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="width: 8%;">EQUIPO</th>
+                    <th rowspan="2" style="width: 10%;">Responsable</th>
+                    <th rowspan="2" style="width: 10%;">Marca</th>
+                    <th rowspan="2" style="width: 18%;">Descripción</th>
+                    <th rowspan="2" style="width: 10%;">Código</th>
+                    <th colspan="2" style="width: 15%;">Uso</th>
+                    <th rowspan="2" style="width: 10%;">Patrón</th>
+                    <th rowspan="2" style="width: 19%;">Observación y/o Verificación</th>
+                </tr>
+                <tr>
+                    <th style="width: 7.5%;">Inicio (Hora)</th>
+                    <th style="width: 7.5%;">Término (Hora)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" id="equipo_1" name="equipo_1" required placeholder="UFC" style="width: 95%; border: none;"></td>
+                    <td><input type="text" id="responsable_1" name="responsable_1" required placeholder="Nombre Apellido" style="width: 95%; border: none;"></td>
+                    <td><input type="text" id="marca_1" name="marca_1" placeholder="IKA" style="width: 95%; border: none;"></td>
+                    <td><input type="text" id="descripcion_1" name="descripcion_1" required placeholder="Agitación" style="width: 95%; border: none;"></td>
+                    <td><input type="text" id="codigo_1" name="codigo_1" required placeholder="2.90" style="width: 95%; border: none;"></td>
+                    <td><input type="time" id="uso_inicio_1" name="uso_inicio_1" required style="width: 95%; border: none;"></td>
+                    <td><input type="time" id="uso_termino_1" name="uso_termino_1" required style="width: 95%; border: none;"></td>
+                    <td><input type="text" id="patron_1" name="patron_1" placeholder="Nitrato" style="width: 95%; border: none;"></td>
+                    <td><input type="text" id="observacion_1" name="observacion_1" placeholder="Buen estado" style="width: 95%; border: none;"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="equipo_2" required style="width: 95%; border: none;"></td>
+                    <td><input type="text" name="responsable_2" required style="width: 95%; border: none;"></td>
+                    <td><input type="text" name="marca_2" style="width: 95%; border: none;"></td>
+                    <td><input type="text" name="descripcion_2" required style="width: 95%; border: none;"></td>
+                    <td><input type="text" name="codigo_2" required style="width: 95%; border: none;"></td>
+                    <td><input type="time" name="uso_inicio_2" required style="width: 95%; border: none;"></td>
+                    <td><input type="time" name="uso_termino_2" required style="width: 95%; border: none;"></td>
+                    <td><input type="text" name="patron_2" style="width: 95%; border: none;"></td>
+                    <td><input type="text" name="observacion_2" style="width: 95%; border: none;"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <table border="1" width="100%" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th><label for="observaciones_generales">OBSERVACIONES</label></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <textarea id="observaciones_generales" name="observaciones_generales" rows="5" placeholder="Escriba aquí cualquier observación relevante..." style="width: 99%; border: none; padding: 5px; box-sizing: border-box;"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <table border="1" width="100%" style="border-collapse: collapse; table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th style="width: 33%;">Elaboró</th>
+                        <th style="width: 33%;">Revisó</th>
+                        <th style="width: 34%;">Aprobó</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="height: 60px;">
+                            <p style="margin: 5px 0 0 0;"><label for="nombre_elaboro">Nombre y Firma:</label></p>
+                            <input type="text" id="nombre_elaboro" name="nombre_elaboro" style="width: 95%; border: none; border-bottom: 1px solid black; margin-top: 10px;">
+                            <p style="margin: 0;"><label for="fecha_elaboro">Fecha:</label></p>
+                            <input type="date" id="fecha_elaboro" name="fecha_elaboro" style="width: 95%; border: none; margin-top: 5px;">
+                        </td>
+                         <td style="height: 60px;">
+                            <p style="margin: 5px 0 0 0;"><label for="nombre_reviso">Nombre y Firma:</label></p>
+                            <input type="text" id="nombre_reviso" name="nombre_reviso" style="width: 95%; border: none; border-bottom: 1px solid black; margin-top: 10px;">
+                            <p style="margin: 0;"><label for="fecha_reviso">Fecha:</label></p>
+                            <input type="date" id="fecha_reviso" name="fecha_reviso" style="width: 95%; border: none; margin-top: 5px;">
+                        </td>
+                        <td style="height: 60px;">
+                            <p style="margin: 5px 0 0 0;"><label for="nombre_aprobo">Nombre y Firma:</label></p>
+                            <input type="text" id="nombre_aprobo" name="nombre_aprobo" style="width: 95%; border: none; border-bottom: 1px solid black; margin-top: 10px;">
+                            <p style="margin: 0;"><label for="fecha_aprobo">Fecha:</label></p>
+                            <input type="date" id="fecha_aprobo" name="fecha_aprobo" style="width: 95%; border: none; margin-top: 5px;">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: right; margin-top: 10px;">
+            <button type="submit">Guardar Registro</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

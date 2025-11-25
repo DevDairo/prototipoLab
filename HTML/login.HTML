@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet Laboratorio SENA - Prototipo</title>
+    
+    <!-- Tailwind CSS para estilos rápidos y responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fuentes e Iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+       <link rel="shortcut icon" href="/MEDIA/IMG/LOGOSENA.png" />
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
+        }
+
+        /* ==========================================================================
+           ZONA DE LOGOS E IMAGENES
+           Si deseas cambiar el logo por una imagen PNG/SVG, busca la clase .logo-container
+           y reemplaza el ícono <i class="..."> por tu etiqueta <img>.
+           ==========================================================================
+        */
+        
+        .logo-placeholder {
+            /* Puedes poner aquí background-image: url('ruta/logo.png'); */
+        }
+
+        /* Estilos para el scrollbar personalizado */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        /* Animaciones suaves */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-enter {
+            animation: modalEnter 0.3s ease-out forwards;
+        }
+        @keyframes modalEnter {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden">
+
+    <!-- =======================
+         PANTALLA DE LOGIN
+         ======================= -->
+    <div id="login-screen" class="flex h-screen w-full bg-white relative z-50">
+        
+        <!-- Lado Izquierdo: Imagen Decorativa (Solicitado en el prompt) -->
+        <div class="hidden lg:flex lg:w-1/2 bg-gray-1000 relative overflow-hidden">
+            <!-- Imagen de referencia de laboratorio -->
+            <img src="/MEDIA/IMG/lab_inicio.jpg" 
+                 alt="Laboratorio" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-r from-green-900/40 to-transparent"></div>
+            
+            <div class="absolute bottom-10 left-10 text-white p-6 font-bold ">
+                <h2 class="text-4xl mb-2">Innovación y Calidad</h2>
+                <p class="text-lg ">Gestión integral de procesos de laboratorio.</p>
+            </div>
+        </div>
+
+        <!-- Lado Derecho: Formulario -->
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
+            <div class="w-full max-w-md space-y-8">
+                <div class="text-center">
+                    <!-- LOGO SVG PROVISIONAL -->
+                    <div class="mx-auto h-16 w-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-flask text-3xl text-green-600"></i>
+                    </div>
+                    
+                    <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Iniciar Sesión</h2>
+                    <p class="mt-2 text-sm text-gray-600">
+                        Intranet laboratorio SENA - CTPGA
+                    </p>
+                </div>
+
+                <form class="mt-8 space-y-6" id="login-form">
+                    <div class="space-y-4 rounded-md shadow-sm">
+                        <div>
+                            <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+                            <input id="username" name="username" type="text" required 
+                                class="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" 
+                                placeholder="Ej: admin">
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                            <input id="password" name="password" type="password" required 
+                                class="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" 
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" 
+                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                            Entrar
+                        </button>
+                    </div>
+                    <div id="login-error" class="text-red-500 text-sm text-center hidden">
+                        Usuario o contraseña incorrectos (Usa: admin / admin)
+                    </div>
+                </form>
+                
+                <p class="text-center text-xs text-gray-400 mt-10">
+                    Prototipo - 2025
+                </p>
+
+
+<!-- BOTÓN NUEVO -->
+<div class="flex justify-center mt-4">
+    <a href="/HTML/principal.HTML"
+       class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg shadow-sm hover:bg-green-700 transition">
+        Inicio
+    </a>
+</div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- =======================
+         DASHBOARD PRINCIPAL (APP)
+         ======================= -->
+    <div id="app-container" class="hidden h-screen flex bg-gray-50">
+        
+        <!-- SIDEBAR -->
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col hidden md:flex transition-all duration-300" id="sidebar">
+            <div class="h-16 flex items-center px-6 border-b border-gray-100">
+                <!-- LOGO DEL SIDEBAR -->
+                <div class="flex items-center gap-3">
+                    <div class="h-8 w-8 bg-green-600 rounded-lg flex items-center justify-center text-white">
+                        <img src="/MEDIA/IMG/LOGOSENA.png" alt="">
+                    </div>
+                    <span class="font-bold text-gray-800 text-lg">Laboratorio SENA-CTPGA</span>
+                </div>
+            </div>
+
+            <div class="p-4 space-y-1 overflow-y-auto flex-1">
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Navegación</p>
+                
+                <button onclick="router('dashboard')" class="nav-btn w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors bg-green-50 text-green-700" id="nav-dashboard">
+                    <i class="fa-solid fa-chart-pie w-5"></i>
+                    Metricas
+                </button>
+                
+                <button onclick="router('muestras')" class="nav-btn w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors" id="nav-muestras">
+                    <i class="fa-solid fa-flask w-5"></i>
+                    Calor / Muestras
+                </button>
+                
+                <button onclick="router('frio')" class="nav-btn w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors" id="nav-frio">
+                    <i class="fa-solid fa-temperature-low w-5"></i>
+                    Cadena de Frío
+                </button>
+                
+                <button onclick="router('registros')" class="nav-btn w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors" id="nav-registros">
+                    <i class="fa-solid fa-clock-rotate-left w-5"></i>
+                    Registros / Historial
+                </button>
+                
+                <button onclick="router('ajustes')" class="nav-btn w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors" id="nav-ajustes">
+                    <i class="fa-solid fa-gear w-5"></i>
+                    Ajustes
+                </button>
+            </div>
+
+            <div class="p-4 border-t border-gray-100">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                        <i class="fa-solid fa-user text-gray-500"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-700">Administrador</p>
+                        <p class="text-xs text-gray-500">admin@sena.edu.co</p>
+                    </div>
+                </div>
+                <button onclick="logout()" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+            
+            <!-- HEADER -->
+            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 lg:px-8">
+                <div class="flex items-center gap-4">
+                    <button class="md:hidden text-gray-500 hover:text-gray-700" onclick="document.getElementById('sidebar').classList.toggle('hidden'); document.getElementById('sidebar').classList.toggle('absolute'); document.getElementById('sidebar').classList.toggle('z-50'); document.getElementById('sidebar').classList.toggle('h-full');">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                    <div class="hidden md:flex items-center text-gray-400 bg-gray-100 rounded-lg px-3 py-1.5 w-64">
+                        <i class="fa-solid fa-magnifying-glass text-sm mr-2"></i>
+                        <input type="text" placeholder="Buscar registros, tareas..." class="bg-transparent border-none focus:outline-none text-sm w-full text-gray-600">
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <button class="relative p-2 text-gray-400 hover:text-green-600 transition-colors">
+                        <i class="fa-regular fa-bell text-xl"></i>
+                        <span class="absolute top-1.5 right-1.5 h-2 w-2 bg-red-500 rounded-full border border-white"></span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- ZONA DE CONTENIDO DINAMICO -->
+            <div id="main-content" class="flex-1 overflow-y-auto p-6 lg:p-8">
+                <!-- El contenido se inyecta aquí con JS -->
+            </div>
+
+        </main>
+    </div>
+
+    <!-- =======================
+         MODAL DE FORMULARIO
+         ======================= -->
+    <div id="form-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity backdrop-blur-sm" onclick="closeModal()"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl modal-enter">
+                    
+                    <!-- Modal Header -->
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 border-b border-gray-100">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-semibold leading-6 text-gray-900" id="modal-title">Nuevo Registro de Análisis</h3>
+                            <button onclick="closeModal()" class="text-gray-400 hover:text-gray-500">
+                                <i class="fa-solid fa-xmark text-xl"></i>
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-1">Diligencie los datos basados en el formulario de referencia HEAD SOIL SET.</p>
+                    </div>
+
+                    <!-- Modal Body (Formulario) -->
+                    <form class="p-6 space-y-6">
+                        <!-- Sección 1: Info General -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Fecha de Muestreo</label>
+                                <input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm border p-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Lote de Materiales</label>
+                                <input type="text" placeholder="Ej: Lote A-24" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm border p-2">
+                            </div>
+                        </div>
+
+                        <!-- Sección 2: Detalles de Prueba -->
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <h4 class="text-sm font-bold text-gray-700 mb-3 uppercase border-b pb-2">Prueba de Presencia de Residuos</h4>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-500 uppercase">Cant. Pruebas</label>
+                                    <input type="number" value="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm border p-2">
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-xs font-medium text-gray-500 uppercase">Responsable</label>
+                                    <input type="text" value="Administrador" readonly class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 text-gray-500 sm:text-sm border p-2 cursor-not-allowed">
+                                </div>
+                            </div>
+
+
+                         
+<div class="mt-4">
+    <label class="block text-sm font-medium text-gray-700 mb-2">
+        Seleccionar muestra
+    </label>
+
+    <!-- Input real (oculto) -->
+    <input type="file" 
+           id="folderPicker"
+           webkitdirectory 
+           directory 
+           multiple 
+           class="hidden">
+
+    <!-- Botón estilizado -->
+    <label for="folderPicker"
+           class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-green-500 cursor-pointer transition">
+        <i class="fa-solid fa-folder-open text-lg"></i>
+        Elegir Muestra
+    </label>
+</div>
+
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Resultado del Análisis</label>
+                                <div class="flex gap-4">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="result" class="text-green-600 focus:ring-green-500">
+                                        <span class="text-sm text-gray-700">Aceptable</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="result" class="text-red-600 focus:ring-red-500">
+                                        <span class="text-sm text-gray-700">No Aceptable / Residuo Detectado</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección 3: Observaciones -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Observaciones / Novedades</label>
+                            <textarea rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm border p-2" placeholder="Ingrese cualquier anomalía observada durante la toma de la muestra..."></textarea>
+                        </div>
+                    </form>
+
+                    <!-- Modal Footer -->
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 border-t border-gray-100">
+                        <button type="button" onclick="saveForm()" class="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto">Guardar Registro</button>
+                        <button type="button" onclick="closeModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- LOGICA DE LOGIN ---
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            
+            // Credenciales simples como solicitado
+            if(user === 'admin' && pass === 'admin') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('app-container').classList.remove('hidden');
+                renderDashboard(); // Cargar dashboard por defecto
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        });
+
+        function logout() {
+            document.getElementById('app-container').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('login-error').classList.add('hidden');
+        }
+
+        // --- SISTEMA DE RUTAS (SPA Simple) ---
+        function router(page) {
+            // Actualizar botones del sidebar
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-green-50', 'text-green-700');
+                btn.classList.add('text-gray-600');
+            });
+            
+            const activeBtn = document.getElementById(`nav-${page}`);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-green-50', 'text-green-700');
+                activeBtn.classList.remove('text-gray-600');
+            }
+
+            // Renderizar contenido
+            const content = document.getElementById('main-content');
+            content.innerHTML = ''; // Limpiar
+            content.classList.remove('fade-in');
+            void content.offsetWidth; // Trigger reflow
+            content.classList.add('fade-in');
+
+            switch(page) {
+                case 'dashboard': renderDashboard(); break;
+                case 'muestras': renderMuestras(); break;
+                case 'frio': renderFrio(); break;
+                case 'registros': renderRegistros(); break;
+                case 'ajustes': renderAjustes(); break;
+            }
+        }
+
+        // --- RENDERIZADORES DE VISTAS ---
+
+        function renderDashboard() {
+            const html = `
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800">Metricas</h2>
+                    <p class="text-gray-500">Panel de control general del laboratorio</p>
+                </div>
+
+                <!-- Tarjetas Métricas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <!-- Card 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Muestras del Día</p>
+                            <p class="text-3xl font-bold text-gray-800 mt-1">24</p>
+                            <span class="text-xs text-green-600 font-medium">+12% vs ayer</span>
+                        </div>
+                        <div class="h-12 w-12 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Pendientes</p>
+                            <p class="text-3xl font-bold text-gray-800 mt-1">8</p>
+                            <span class="text-xs text-orange-500 font-medium">Prioridad alta</span>
+                        </div>
+                        <div class="h-12 w-12 bg-orange-50 rounded-lg flex items-center justify-center text-orange-600">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Temp. Promedio</p>
+                            <p class="text-3xl font-bold text-gray-800 mt-1">4.5°C</p>
+                            <span class="text-xs text-green-600 font-medium">Estable</span>
+                        </div>
+                        <div class="h-12 w-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
+                            <i class="fa-solid fa-temperature-half"></i>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Completados Hoy</p>
+                            <p class="text-3xl font-bold text-gray-800 mt-1">16</p>
+                            <span class="text-xs text-gray-400">97% efectividad</span>
+                        </div>
+                        <div class="h-12 w-12 bg-green-50 rounded-lg flex items-center justify-center text-green-600">
+                            <i class="fa-regular fa-circle-check"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Tareas del Día -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 lg:col-span-1">
+                        <h3 class="font-bold text-gray-800 mb-4">Tareas del Día</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer border-l-4 border-red-400 bg-white shadow-sm">
+                                <input type="checkbox" class="mt-1 rounded text-green-600 focus:ring-green-500">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-800">Verificar temperatura cámara #3</p>
+                                    <p class="text-xs text-gray-500">08:00 AM - Pendiente</p>
+                                </div>
+                                <span class="ml-auto text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">Alta</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer border-l-4 border-red-400 bg-white shadow-sm">
+                                <input type="checkbox" class="mt-1 rounded text-green-600 focus:ring-green-500">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-800">Registrar muestras de suelo Lote A</p>
+                                    <p class="text-xs text-gray-500">09:30 AM</p>
+                                </div>
+                                <span class="ml-auto text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">Alta</span>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors cursor-pointer border-l-4 border-blue-400 bg-white shadow-sm">
+                                <input type="checkbox" class="mt-1 rounded text-green-600 focus:ring-green-500">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-800">Calibración equipos de pH</p>
+                                    <p class="text-xs text-gray-500">11:00 AM</p>
+                                </div>
+                                <span class="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Media</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Métricas Rápidas -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 lg:col-span-2">
+                        <h3 class="font-bold text-gray-800 mb-4">Métricas Rápidas - Temperatura</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 rounded-l-lg">Área</th>
+                                        <th class="px-4 py-3">Temperatura</th>
+                                        <th class="px-4 py-3">Estado</th>
+                                        <th class="px-4 py-3 rounded-r-lg text-right">Hora</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="space-y-2">
+                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                        <td class="px-4 py-3 font-medium text-gray-900">Cámara #1</td>
+                                        <td class="px-4 py-3">4.2°C</td>
+                                        <td class="px-4 py-3"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Normal</span></td>
+                                        <td class="px-4 py-3 text-right">10:30</td>
+                                    </tr>
+                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                        <td class="px-4 py-3 font-medium text-gray-900">Cámara #2</td>
+                                        <td class="px-4 py-3">4.5°C</td>
+                                        <td class="px-4 py-3"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Normal</span></td>
+                                        <td class="px-4 py-3 text-right">10:30</td>
+                                    </tr>
+                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                        <td class="px-4 py-3 font-medium text-gray-900">Cámara #3</td>
+                                        <td class="px-4 py-3 text-red-600 font-bold">9.1°C</td>
+                                        <td class="px-4 py-3"><span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Alerta</span></td>
+                                        <td class="px-4 py-3 text-right">10:25</td>
+                                    </tr>
+                                    <tr class="bg-white hover:bg-gray-50">
+                                        <td class="px-4 py-3 font-medium text-gray-900">Lab. Principal</td>
+                                        <td class="px-4 py-3">22.1°C</td>
+                                        <td class="px-4 py-3"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Normal</span></td>
+                                        <td class="px-4 py-3 text-right">10:30</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('main-content').innerHTML = html;
+        }
+
+        function renderMuestras() {
+            const html = `
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Calor / Muestras de Tierra</h2>
+                        <p class="text-gray-500">Formularios de análisis de muestras de suelo y temperatura.</p>
+                    </div>
+                    <button onclick="openModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Crear Nuevo
+                    </button>
+                </div>
+
+                <!-- Buscador de sección -->
+                <div class="flex items-center gap-4 mb-6 bg-white p-2 rounded-lg border border-gray-200 shadow-sm max-w-2xl">
+                    <i class="fa-solid fa-filter text-gray-400 pl-2"></i>
+                    <input type="text" placeholder="Buscar por operador, fecha o lote..." class="flex-1 outline-none text-sm text-gray-600">
+                    <select class="text-sm border-none outline-none text-gray-500 bg-transparent">
+                        <option>Todos</option>
+                        <option>Pendientes</option>
+                        <option>Completados</option>
+                    </select>
+                    <button class="bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1 rounded text-sm transition-colors">Buscar</button>
+                </div>
+
+                <!-- Grid de Formularios (Estilo Documento) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    
+                    ${generateDocCard('Registro de Muestra de Suelo', 2, 'head-soil')}
+                    ${generateDocCard('Análisis de pH', 2, 'ph')}
+                    ${generateDocCard('Control de Temperatura', 2, 'temp')}
+                    ${generateDocCard('Muestreo Lote C-10', 1, 'soil')}
+                    
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Registros Recientes</h3>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 divide-y divide-gray-100">
+                        ${generateListRow('2024-01-15', 'Juan Perez', 'Completado')}
+                        ${generateListRow('2024-01-15', 'Maria Garcia', 'Pendiente')}
+                        ${generateListRow('2024-01-14', 'Carlos Lopez', 'Completado')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('main-content').innerHTML = html;
+        }
+
+        function renderFrio() {
+            const html = `
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Cadena de Frío</h2>
+                        <p class="text-gray-500">Formularios de monitoreo y control de temperatura.</p>
+                    </div>
+                    <button onclick="openModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Nuevo Registro
+                    </button>
+                </div>
+
+                 <!-- Buscador de sección -->
+                <div class="flex items-center gap-4 mb-6 bg-white p-2 rounded-lg border border-gray-200 shadow-sm max-w-2xl">
+                    <i class="fa-solid fa-snowflake text-blue-400 pl-2"></i>
+                    <input type="text" placeholder="Buscar por cámara, producto..." class="flex-1 outline-none text-sm text-gray-600">
+                    <button class="bg-gray-100 hover:bg-gray-200 text-gray-600 px-3 py-1 rounded text-sm transition-colors">Buscar</button>
+                </div>
+
+                <!-- Grid de Formularios -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${generateColdCard('Monitoreo de Temperatura', 'Monitorización cámaras 1-4', 'fa-temperature-arrow-down')}
+                    ${generateColdCard('Registro de Productos', 'Entrada y salida de biológicos', 'fa-box-open')}
+                    ${generateColdCard('Reporte de Incidente', 'Fallas eléctricas o térmicas', 'fa-triangle-exclamation', true)}
+                </div>
+
+                <div class="mt-10">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Actividad Reciente</h3>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 divide-y divide-gray-100">
+                         ${generateListRow('2024-01-15', 'Ana Martinez', 'Completado')}
+                         ${generateListRow('2024-01-14', 'Luis Rodriguez', 'Completado')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('main-content').innerHTML = html;
+        }
+
+        function renderRegistros() {
+            const html = `
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800">Registros / Historial</h2>
+                    <p class="text-gray-500">Gestión completa de registros del laboratorio.</p>
+                </div>
+
+                <!-- Tabla -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-4 border-b border-gray-200 flex flex-col md:flex-row gap-4 justify-between items-center bg-gray-50">
+                        <div class="relative w-full md:w-96">
+                             <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400 text-xs"></i>
+                             <input type="text" placeholder="Buscar por tipo, responsable, área..." class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-green-500">
+                        </div>
+                        <div class="flex gap-2">
+                             <select class="text-sm border-gray-300 rounded-lg p-2 text-gray-600 outline-none border bg-white">
+                                <option>Todos</option>
+                                <option>Ultima Semana</option>
+                                <option>Ultimo Mes</option>
+                             </select>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
+                                <tr>
+                                    <th class="p-4 w-4"><input type="checkbox" class="rounded text-green-600 focus:ring-green-500"></th>
+                                    <th class="px-6 py-3">ID</th>
+                                    <th class="px-6 py-3">Fecha y Hora</th>
+                                    <th class="px-6 py-3">Tipo</th>
+                                    <th class="px-6 py-3">Área</th>
+                                    <th class="px-6 py-3">Responsable</th>
+                                    <th class="px-6 py-3">Estado</th>
+                                    <th class="px-6 py-3 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="bg-white hover:bg-gray-50 transition-colors">
+                                    <td class="p-4"><input type="checkbox" class="rounded text-green-600"></td>
+                                    <td class="px-6 py-4 font-medium text-gray-900">#001</td>
+                                    <td class="px-6 py-4">2024-01-15 10:30</td>
+                                    <td class="px-6 py-4">Muestra de Suelo</td>
+                                    <td class="px-6 py-4">Calor / Tierra</td>
+                                    <td class="px-6 py-4">Juan Perez</td>
+                                    <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Completado</span></td>
+                                    <td class="px-6 py-4 text-right space-x-2">
+                                        <button class="text-gray-400 hover:text-blue-600"><i class="fa-regular fa-eye"></i></button>
+                                        <button class="text-gray-400 hover:text-green-600"><i class="fa-regular fa-pen-to-square"></i></button>
+                                        <button class="text-gray-400 hover:text-red-600"><i class="fa-regular fa-trash-can"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50 transition-colors">
+                                    <td class="p-4"><input type="checkbox" class="rounded text-green-600"></td>
+                                    <td class="px-6 py-4 font-medium text-gray-900">#002</td>
+                                    <td class="px-6 py-4">2024-01-15 09:15</td>
+                                    <td class="px-6 py-4">Monitoreo Temp.</td>
+                                    <td class="px-6 py-4">Cadena de Frío</td>
+                                    <td class="px-6 py-4">Maria Garcia</td>
+                                    <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Completado</span></td>
+                                    <td class="px-6 py-4 text-right space-x-2">
+                                        <button class="text-gray-400 hover:text-blue-600"><i class="fa-regular fa-eye"></i></button>
+                                        <button class="text-gray-400 hover:text-green-600"><i class="fa-regular fa-pen-to-square"></i></button>
+                                        <button class="text-gray-400 hover:text-red-600"><i class="fa-regular fa-trash-can"></i></button>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-50/50 hover:bg-gray-50 transition-colors">
+                                    <td class="p-4"><input type="checkbox" class="rounded text-green-600"></td>
+                                    <td class="px-6 py-4 font-medium text-gray-900">#003</td>
+                                    <td class="px-6 py-4">2024-01-15 08:00</td>
+                                    <td class="px-6 py-4">Análisis pH</td>
+                                    <td class="px-6 py-4">Calor / Tierra</td>
+                                    <td class="px-6 py-4">Carlos Lopez</td>
+                                    <td class="px-6 py-4"><span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">Borrador</span></td>
+                                    <td class="px-6 py-4 text-right space-x-2">
+                                        <button class="text-gray-400 hover:text-blue-600"><i class="fa-regular fa-eye"></i></button>
+                                        <button class="text-gray-400 hover:text-green-600"><i class="fa-regular fa-pen-to-square"></i></button>
+                                        <button class="text-gray-400 hover:text-red-600"><i class="fa-regular fa-trash-can"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            document.getElementById('main-content').innerHTML = html;
+        }
+
+        function renderAjustes() {
+            const html = `
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800">Ajustes</h2>
+                    <p class="text-gray-500">Configuración general del sistema y perfil.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <!-- Perfil -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-800 mb-6 pb-2 border-b">Perfil de Usuario</h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                                    <input type="text" value="Administrador" class="w-full border-gray-300 rounded-lg p-2 text-sm text-gray-600 border bg-gray-50">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                                    <input type="text" value="admin@sena.edu.co" class="w-full border-gray-300 rounded-lg p-2 text-sm text-gray-600 border bg-gray-50">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Rol</label>
+                                    <input type="text" value="Administrador" disabled class="w-full border-gray-300 rounded-lg p-2 text-sm text-gray-400 border bg-gray-100 cursor-not-allowed">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Departamento</label>
+                                    <input type="text" value="Laboratorio" class="w-full border-gray-300 rounded-lg p-2 text-sm text-gray-600 border bg-gray-50">
+                                </div>
+                            </div>
+                            <div class="pt-4">
+                                <button class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 transition-colors">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notificaciones -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="text-lg font-bold text-gray-800 mb-6 pb-2 border-b">Notificaciones</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Alertas de temperatura</p>
+                                    <p class="text-xs text-gray-500">Recibir notificación cuando salga del rango.</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Recordatorios de tareas</p>
+                                    <p class="text-xs text-gray-500">Notificaciones de tareas pendientes diarias.</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Reportes Semanales</p>
+                                    <p class="text-xs text-gray-500">Resumen por correo los viernes.</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sistema -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 lg:col-span-2">
+                        <h3 class="text-lg font-bold text-gray-800 mb-6 pb-2 border-b">Sistema</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Temp. Mínima (°C)</label>
+                                <input type="number" value="2" class="w-full border-gray-300 rounded-lg p-2 text-sm text-gray-600 border">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Temp. Máxima (°C)</label>
+                                <input type="number" value="8" class="w-full border-gray-300 rounded-lg p-2 text-sm text-gray-600 border">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Retención Registros (Días)</label>
+                                <input type="number" value="365" class="w-full border-gray-300 rounded-lg p-2 text-sm text-gray-600 border">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('main-content').innerHTML = html;
+        }
+
+        // --- COMPONENTES AUXILIARES ---
+
+        function generateDocCard(title, count, type) {
+            // Simulando la vista previa de un documento con CSS puro
+            return `
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer group" onclick="openModal()">
+                <div class="h-48 bg-gray-100 relative p-4 flex justify-center items-center overflow-hidden">
+                    <!-- Representación visual del documento (Miniatura) -->
+                    <div class="w-32 h-40 bg-white shadow-sm border border-gray-200 transform group-hover:scale-105 transition-transform duration-300 flex flex-col p-2">
+                         <div class="h-2 w-16 bg-gray-200 mb-2"></div>
+                         <div class="h-1 w-full bg-gray-100 mb-1"></div>
+                         <div class="h-1 w-full bg-gray-100 mb-1"></div>
+                         <div class="h-1 w-2/3 bg-gray-100 mb-3"></div>
+                         
+                         <!-- Tabla simulada -->
+                         <div class="border border-gray-100 grid grid-cols-2 gap-px bg-gray-100 flex-1">
+                            <div class="bg-white"></div><div class="bg-white"></div>
+                            <div class="bg-white"></div><div class="bg-white"></div>
+                            <div class="bg-white"></div><div class="bg-white"></div>
+                            <div class="bg-green-50 col-span-2"></div>
+                         </div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h4 class="font-semibold text-gray-800 text-sm mb-1">${title}</h4>
+                    <p class="text-xs text-gray-500 flex items-center gap-1">
+                        <i class="fa-regular fa-file-lines"></i> ${count} completados
+                    </p>
+                </div>
+            </div>
+            `;
+        }
+
+        function generateColdCard(title, subtitle, icon, isAlert = false) {
+            const iconColor = isAlert ? 'text-red-500 bg-red-50' : 'text-blue-500 bg-blue-50';
+            return `
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer flex flex-col items-center text-center group" onclick="openModal()">
+                <div class="h-16 w-16 ${iconColor} rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid ${icon} text-2xl"></i>
+                </div>
+                <h4 class="font-bold text-gray-800 mb-1">${title}</h4>
+                <p class="text-xs text-gray-500">${subtitle}</p>
+                <div class="mt-4 pt-4 border-t border-gray-50 w-full flex justify-between items-center text-xs text-gray-400">
+                    <span>2 completados</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+            `;
+        }
+
+        function generateListRow(date, user, status) {
+            let statusClass = status === 'Completado' ? 'text-green-600 bg-green-50' : 'text-gray-600 bg-gray-100';
+            if (status === 'Pendiente') statusClass = 'text-orange-600 bg-orange-50';
+
+            return `
+            <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                <div class="flex items-center gap-4">
+                    <div class="h-10 w-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500">
+                        <i class="fa-regular fa-file-lines"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-gray-800">${date}</p>
+                        <p class="text-xs text-gray-500">${user}</p>
+                    </div>
+                </div>
+                <span class="text-xs font-medium px-2.5 py-0.5 rounded ${statusClass}">${status}</span>
+            </div>
+            `;
+        }
+
+        // --- MANEJO DE MODALES ---
+        function openModal() {
+            document.getElementById('form-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('form-modal').classList.add('hidden');
+        }
+
+        function saveForm() {
+            // Simulación de guardado
+            const btn = document.querySelector('#form-modal button[onclick="saveForm()"]');
+            const originalText = btn.innerText;
+            
+            btn.innerText = 'Guardando...';
+            btn.classList.add('opacity-75');
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('opacity-75');
+                closeModal();
+                alert('Registro guardado exitosamente');
+            }, 1000);
+        }
+
+    </script>
+</body>
+</html>
