@@ -388,10 +388,10 @@
                         <p class="text-sm text-gray-500">Complete los campos y exporte a PDF</p>
                     </div>
                     <div class="flex items-center gap-3">
-                        <button onclick="exportFormToPDF()" class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-red-700 transition">
-                            <i class="fa-solid fa-file-pdf"></i>
-                            Exportar a PDF
-                        </button>
+                     <button onclick="exportFormToPDF(event)" data-export-btn class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white ...">
+  <i class="fa-solid fa-file-pdf"></i> Exportar a PDF
+</button>
+
                         <button onclick="closeFormEditor()" class="text-gray-400 hover:text-gray-500">
                             <i class="fa-solid fa-xmark text-2xl"></i>
                         </button>
@@ -786,7 +786,7 @@ function loadFormEditor(formKey) {
     `;
     
     // Cargar HTML del formulario
-    document.getElementById('form-content-container ').innerHTML = form.html; // Cerrar selector y abrir editor
+    document.getElementById('form-content-container').innerHTML = form.html; // Cerrar selector y abrir editor
 closeFormSelector();
 document.getElementById('form-editor-modal').classList.remove('hidden'); }
 function closeFormEditor() {
@@ -1419,6 +1419,161 @@ html2pdf()
     }, 1000);
 } 
 
-    </script>
+
+/* ---- 1) Función corregida: loadFormEditor (quita el selector con espacio y maneja html o ruta) */
+async function loadFormEditor(formKey) {
+  try {
+    const form = formulariosDB[formKey];
+    if (!form) {
+      console.error('Formulario no encontrado:', formKey);
+      return;
+    }
+
+    // Actualizar título del editor
+    const editorTitle = document.getElementById('editor-title');
+    if (editorTitle) editorTitle.innerHTML = `<i class="fa-solid ${form.icono} mr-2"></i>${form.nombre}`;
+
+    // Obtener contenido HTML: preferir form.html (in-memory) si existe, si no fetch rutaHTML
+    let bodyContent = '';
+    if (form.html) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(form.html, 'text/html');
+      bodyContent = doc.body ? doc.body.innerHTML : form.html;
+    } else if (form.rutaHTML) {
+      const resp = await fetch(form.rutaHTML);
+      if (!resp.ok) throw new Error(`Error al cargar ${form.rutaHTML}: ${resp.status}`);
+      const htmlContent = await resp.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlContent, 'text/html');
+      bodyContent = doc.body ? doc.body.innerHTML : htmlContent;
+    } else {
+      throw new Error('No hay contenido para este formulario.');
+    }
+
+    // Buscar contenedor correcto (sin espacio en id)
+    const container = document.getElementById('form-content-container');
+    if (!container) {
+      console.error('Contenedor #form-content-container no encontrado en DOM.');
+      return;
+    }
+
+    container.innerHTML = `<div class="form-ui-wrapper" data-form-key="${formKey}">${bodyContent}</div>`;
+
+    // Aplicar estilos UI (si existe la función)
+    try { if (typeof applyUIStyles === 'function') applyUIStyles(container); } catch(e) { console.warn('applyUIStyles falló:', e); }
+
+    // Cerrar selector y abrir editor (si existen)
+    try { if (typeof closeFormSelector === 'function') closeFormSelector(); } catch(e){}
+    try { document.getElementById('form-editor-modal').classList.remove('hidden'); } catch(e){}
+
+  } catch (err) {
+    console.error('loadFormEditor error:', err);
+    alert('Error cargando formulario: ' + (err.message || err));
+  }
+}
+
+/* ---- 2) Función robusta de exportación a PDF (recibe evento; no depende de global `event`) 
+   - Cambia el onclick del botón export a: onclick="exportFormToPDF(event)" y añade data-export-btn
+*/
+async function exportFormToPDF(evt) {
+  try {
+    // Determinar botón de invocación
+    const e = evt || window.event || {};
+    let btn = null;
+    if (e && e.target) btn = e.target.closest ? e.target.closest('button') : null;
+    if (!btn) btn = document.querySelector('[data-export-btn]') || null;
+
+    // Marcar estado botón
+    const originalHTML = btn ? btn.innerHTML : null;
+    if (btn) { btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Generando PDF...'; btn.disabled = true; }
+
+    const container = document.getElementById('form-content-container');
+    if (!container) {
+      alert('No hay formulario cargado para exportar.');
+      if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
+      return;
+    }
+
+    const wrapper = container.querySelector('.form-ui-wrapper');
+    if (!wrapper) {
+      alert('El formulario no está listo para exportar.');
+      if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
+      return;
+    }
+
+    const formKey = wrapper.getAttribute('data-form-key');
+    const form = formulariosDB[formKey];
+    if (!form) {
+      alert('Formulario no identificado para exportar.');
+      if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
+      return;
+    }
+
+    // Clonar y limpiar clases UI
+    const cloned = wrapper.cloneNode(true);
+    cloned.querySelectorAll('*').forEach(el => el.removeAttribute('class'));
+
+    // Preparar contenedor temporal con CSS original del formulario (si viene en DB)
+    const pdfContainer = document.createElement('div');
+    pdfContainer.style.cssText = 'position: absolute; left: -9999px; top: 0; width: 210mm;';
+    const cssOriginal = form.cssOriginal || '';
+    pdfContainer.innerHTML = `<style>${cssOriginal} *{box-sizing:border-box;} input, textarea { border-bottom:1px solid #000 !important; background:transparent !important; }</style>` + cloned.innerHTML;
+    document.body.appendChild(pdfContainer);
+
+    // Opciones html2pdf (ajustables)
+    const options = {
+      margin: [10,10,10,10],
+      filename: `${(form.nombre||'formulario').replace(/\s+/g,'_')}_${Date.now()}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging:false, width:794, windowWidth:794 },
+      jsPDF: { unit:'mm', format:'a4', orientation:'portrait', compress:true }
+    };
+
+    await html2pdf().set(options).from(pdfContainer).save();
+
+    // limpiar
+    document.body.removeChild(pdfContainer);
+    if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
+
+    // notificación básica
+    try {
+      const n = document.createElement('div');
+      n.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-[200] fade-in';
+      n.innerHTML = '<i class="fa-solid fa-check-circle mr-2"></i>PDF generado exitosamente';
+      document.body.appendChild(n);
+      setTimeout(()=> n.remove(), 3000);
+    } catch(e){}
+
+  } catch (err) {
+    console.error('exportFormToPDF error:', err);
+    alert('Error al generar PDF: ' + (err.message || err));
+    try { if (evt && evt.target) { const b = evt.target.closest('button'); if (b) { b.disabled = false; b.innerHTML = evt._orig || b.innerHTML; } } } catch(e){}
+  }
+}
+
+/* ---- 3) Compatibilidad de cierre de modales: si hay llamadas a closeModal() no definidas, 
+         añadimos una función wrapper para evitar errores. */
+function closeModal(){
+  try { if (typeof closeFormEditor === 'function') closeFormEditor(); } catch(e){}
+  try { if (typeof closeFormSelector === 'function') closeFormSelector(); } catch(e){}
+  try { if (typeof closeFormModal === 'function') closeFormModal(); } catch(e){}
+}
+
+/* ---- 4) Seguridad: interceptar errores globales mínimos para no romper la app completa */
+window.addEventListener('error', function(evt) {
+  // evitar que un error no capturado detenga ejecución crítica; loguear en consola
+  console.warn('Error capturado (no fatal):', evt.message);
+  // no hacer preventDefault para no ocultar errores reales, pero previene fallos silentes
+});
+
+/* ---- 5) Nota: cambiar el atributo onclick del botón Exportar en el modal a:
+         onclick="exportFormToPDF(event)" y agregar el atributo data-export-btn
+   Ejemplo en HTML (reemplazar el botón actual):
+   <button onclick="exportFormToPDF(event)" data-export-btn class="...">Exportar a PDF</button>
+*/
+
+</script>
+
+
 </body>
 </html>
