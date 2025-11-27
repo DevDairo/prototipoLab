@@ -11,6 +11,7 @@
 
 <!-- Script para exportación PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <!-- Fuentes e Iconos -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -388,9 +389,13 @@
                         <p class="text-sm text-gray-500">Complete los campos y exporte a PDF</p>
                     </div>
                     <div class="flex items-center gap-3">
-                     <button onclick="exportFormToPDF(event)" data-export-btn class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white ...">
-  <i class="fa-solid fa-file-pdf"></i> Exportar a PDF
-</button>
+
+                        <button onclick="exportFormToPDF(event)" 
+        data-export-btn 
+        class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-red-500 transition">
+    <i class="fa-solid fa-file-pdf"></i> 
+    Exportar a PDF
+</button> 
 
                         <button onclick="closeFormEditor()" class="text-gray-400 hover:text-gray-500">
                             <i class="fa-solid fa-xmark text-2xl"></i>
@@ -480,96 +485,15 @@ const formulariosDB = {
         descripcion: 'Registro de novedades y reportes de equipos del laboratorio',
         icono: 'fa-clipboard-list',
         color: 'blue',
-        html: `
-<style>
-    .form-container-oficial { font-family: Arial, sans-serif; font-size: 12px; max-width: 100%; }
-    .form-container-oficial table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-    .form-container-oficial table, .form-container-oficial th, .form-container-oficial td { border: 1px solid #000; }
-    .form-container-oficial th, .form-container-oficial td { padding: 8px; text-align: left; }
-    .form-container-oficial th { background-color: #f0f0f0; font-weight: bold; }
-    .form-container-oficial input[type="text"], .form-container-oficial input[type="date"], .form-container-oficial textarea { 
-        width: 95%; border: none; background: transparent; font-size: 11px; padding: 4px; 
-    }
-    .form-container-oficial input[type="text"]:focus, .form-container-oficial textarea:focus { 
-        outline: 1px solid #4CAF50; background: #f9fff9; 
-    }
-    .form-container-oficial .header-logo { width: 70px; }
-    .form-container-oficial .center-text { text-align: center; font-weight: bold; }
-</style>
-
-<div class="form-container-oficial">
-    <table>
-        <tr>
-            <td rowspan="2" width="15%" class="center-text">
-                <div style="width:70px; height:70px; background:#4CAF50; margin:0 auto; border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">LOGO</div>
-            </td>
-            <td rowspan="2" width="55%" class="center-text">
-                LABORATORIO DE SERVICIOS AMBIENTALES Y AGROPECUARIOS CTPGA
-            </td>
-            <td width="15%">Código</td>
-            <td width="15%">FT-EQ-006</td>
-        </tr>
-        <tr>
-            <td>Fecha de Emisión</td>
-            <td>2023-02-24</td>
-        </tr>
-        <tr>
-            <td colspan="3" class="center-text">NOVEDADES DE EQUIPOS</td>
-            <td>Página 1 de 1</td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <td width="25%"><b>EQUIPO:</b></td>
-            <td width="25%"><b>MARCA / MODELO:</b></td>
-            <td width="25%"><b>CÓDIGO INTERNO:</b></td>
-            <td width="25%"><b>REVISIÓN:</b></td>
-        </tr>
-        <tr>
-            <td><input type="text" placeholder="Nombre del equipo"></td>
-            <td><input type="text" placeholder="Marca y modelo"></td>
-            <td><input type="text" placeholder="Código"></td>
-            <td><input type="text" placeholder="Revisión"></td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <td width="15%"><b>FECHA</b></td>
-            <td width="70%"><b>REPORTE O NOVEDAD</b></td>
-            <td width="15%"><b>FIRMA</b></td>
-        </tr>
-        <tr><td><input type="date"></td><td><input type="text" placeholder="Descripción de la novedad"></td><td><input type="text" placeholder="Firma"></td></tr>
-        <tr><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-        <tr><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-        <tr><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-        <tr><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-        <tr><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-        <tr><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-        <tr><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-    </table>
-
-    <table>
-        <tr>
-            <td width="33%" class="center-text">
-                <b>ELABORÓ</b><br><br>
-                <input type="text" placeholder="Nombre" style="width:80%; border-bottom:1px solid #000;"><br>
-                Fecha: <input type="date" style="width:60%;">
-            </td>
-            <td width="33%" class="center-text">
-                <b>REVISÓ</b><br><br>
-                <input type="text" placeholder="Nombre" style="width:80%; border-bottom:1px solid #000;"><br>
-                Fecha: <input type="date" style="width:60%;">
-            </td>
-            <td width="33%" class="center-text">
-                <b>APROBÓ</b><br><br>
-                <input type="text" placeholder="Nombre" style="width:80%; border-bottom:1px solid #000;"><br>
-                Fecha: <input type="date" style="width:60%;">
-            </td>
-        </tr>
-    </table>
-</div>
+        rutaHTML: '/HTML/tablas/3.HTML',
+        cssOriginal: `
+            body { font-family: Arial, sans-serif; font-size: 12px; }
+            table { border-collapse: collapse; width: 100%; margin-bottom: 10px; }
+            table, th, td { border: 1px solid black; }
+            th, td { padding: 6px; text-align: left; }
+            th { font-weight: bold; }
+            td { min-height: 25px; }
+            img { max-width: 70px; }
         `
     },
     
@@ -578,148 +502,15 @@ const formulariosDB = {
         descripcion: 'Control de uso y seguimiento de equipos del laboratorio',
         icono: 'fa-tools',
         color: 'green',
-        html: `
-<style>
-    .form-container-oficial { font-family: Arial, sans-serif; font-size: 11px; max-width: 100%; }
-    .form-container-oficial table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
-    .form-container-oficial table, .form-container-oficial th, .form-container-oficial td { border: 1px solid #000; }
-    .form-container-oficial th, .form-container-oficial td { padding: 6px; text-align: left; }
-    .form-container-oficial th { background-color: #f0f0f0; font-weight: bold; font-size: 10px; }
-    .form-container-oficial input[type="text"], .form-container-oficial input[type="date"], 
-    .form-container-oficial input[type="time"], .form-container-oficial textarea { 
-        width: 95%; border: none; background: transparent; font-size: 10px; padding: 3px; 
-    }
-    .form-container-oficial input:focus, .form-container-oficial textarea:focus { 
-        outline: 1px solid #4CAF50; background: #f9fff9; 
-    }
-    .form-container-oficial .center-text { text-align: center; font-weight: bold; }
-    .form-container-oficial .header-table { margin-left: auto; width: 300px; font-size: 10px; }
-</style>
-
-<div class="form-container-oficial">
-    <div class="center-text" style="margin-bottom:10px;">
-        <p><strong>LABORATORIO DE SERVICIOS AMBIENTALES Y AGROPECUARIOS CTPGA</strong></p>
-        <p><strong>REGISTRO DE USO DE EQUIPO</strong></p>
-    </div>
-
-    <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
-        <table class="header-table">
-            <tr>
-                <td style="width: 40%;"><label>Código Equipo:</label></td>
-                <td><input type="text" placeholder="EJ-057"></td>
-            </tr>
-            <tr>
-                <td><label>Fecha de Edición:</label></td>
-                <td><input type="date"></td>
-            </tr>
-            <tr>
-                <td><label>Revisión:</label></td>
-                <td><input type="text" placeholder="Rev. 01"></td>
-            </tr>
-        </table>
-    </div>
-
-    <table>
-        <thead>
-            <tr>
-                <th rowspan="2" style="width: 8%;">EQUIPO</th>
-                <th rowspan="2" style="width: 10%;">Responsable</th>
-                <th rowspan="2" style="width: 10%;">Marca</th>
-                <th rowspan="2" style="width: 18%;">Descripción</th>
-                <th rowspan="2" style="width: 10%;">Código</th>
-                <th colspan="2" style="width: 15%;">Uso</th>
-                <th rowspan="2" style="width: 10%;">Patrón</th>
-                <th rowspan="2" style="width: 19%;">Observación</th>
-            </tr>
-            <tr>
-                <th style="width: 7.5%;">Inicio</th>
-                <th style="width: 7.5%;">Término</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input type="text" placeholder="UFC"></td>
-                <td><input type="text" placeholder="Nombre"></td>
-                <td><input type="text" placeholder="IKA"></td>
-                <td><input type="text" placeholder="Agitación"></td>
-                <td><input type="text" placeholder="2.90"></td>
-                <td><input type="time"></td>
-                <td><input type="time"></td>
-                <td><input type="text" placeholder="Nitrato"></td>
-                <td><input type="text" placeholder="Buen estado"></td>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="time"></td>
-                <td><input type="time"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
-            <tr>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-                <td><input type="time"></td>
-                <td><input type="time"></td>
-                <td><input type="text"></td>
-                <td><input type="text"></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-            <tr>
-                <th>OBSERVACIONES</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <textarea rows="4" placeholder="Escriba aquí cualquier observación relevante..." style="width: 99%; padding: 5px;"></textarea>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-            <tr>
-                <th style="width: 33%;">Elaboró</th>
-                <th style="width: 33%;">Revisó</th>
-                <th style="width: 34%;">Aprobó</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="height: 80px; vertical-align: top;" class="center-text">
-                    <p style="margin: 5px 0;">Nombre y Firma:</p>
-                    <input type="text" style="width: 90%; border-bottom: 1px solid #000; margin: 10px 0;">
-                    <p style="margin: 5px 0;">Fecha:</p>
-                    <input type="date" style="width: 70%;">
-                </td>
-                <td style="height: 80px; vertical-align: top;" class="center-text">
-                    <p style="margin: 5px 0;">Nombre y Firma:</p>
-                    <input type="text" style="width: 90%; border-bottom: 1px solid #000; margin: 10px 0;">
-                    <p style="margin: 5px 0;">Fecha:</p>
-                    <input type="date" style="width: 70%;">
-                </td>
-                <td style="height: 80px; vertical-align: top;" class="center-text">
-                    <p style="margin: 5px 0;">Nombre y Firma:</p>
-                    <input type="text" style="width: 90%; border-bottom: 1px solid #000; margin: 10px 0;">
-                    <p style="margin: 5px 0;">Fecha:</p>
-                    <input type="date" style="width: 70%;">
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        rutaHTML: '/HTML/tablas/6.html',
+        cssOriginal: `
+            body { font-family: Arial, sans-serif; font-size: 11px; }
+            table { border-collapse: collapse; width: 100%; margin-bottom: 10px; }
+            table, th, td { border: 1px solid black; }
+            th, td { padding: 4px; text-align: left; }
+            th { font-weight: bold; background-color: #f0f0f0; }
+            input, textarea { width: 95%; border: none; background: transparent; font-size: 10px; }
+            input[type="date"], input[type="time"] { width: 90%; }
         `
     }
 };
@@ -795,66 +586,217 @@ document.getElementById('form-editor-modal').classList.add('hidden');
 // ==========================================
 // FUNCIÓN DE EXPORTACIÓN A PDF
 // ==========================================
-function exportFormToPDF() {
-const content = document.getElementById('form-content-container'); // Mostrar indicador de carga
-const btn = event.target.closest('button');
-const originalHTML = btn.innerHTML;
-btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Generando PDF...';
-btn.disabled = true;
+async function exportFormToPDF(evt) {
+    try {
+        // Obtener botón y deshabilitar
+        const e = evt || window.event;
+        let btn = e?.target?.closest('button');
+        if (!btn) btn = document.querySelector('[data-export-btn]');
 
-// Configuración de html2pdf
-const options = {
-    margin: [10, 10, 10, 10],
-    filename: `formulario_${Date.now()}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { 
-        scale: 2,
-        useCORS: true,
-        letterRendering: true,
-        logging: false
-    },
-    jsPDF: { 
-        unit: 'mm', 
-        format: 'a4', 
-        orientation: 'portrait',
-        compress: true
+        const originalHTML = btn ? btn.innerHTML : '';
+        if (btn) {
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Generando PDF...';
+            btn.disabled = true;
+        }
+
+        // Obtener el formulario cargado
+        const container = document.getElementById('form-content-container');
+        const wrapper = container.querySelector('.form-ui-wrapper');
+        
+        if (!wrapper) {
+            alert('No hay formulario cargado');
+            if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
+            return;
+        }
+
+        const formKey = wrapper.getAttribute('data-form-key');
+        const form = formulariosDB[formKey];
+
+        if (!form) {
+            alert('Formulario no identificado');
+            if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
+            return;
+        }
+
+        // PASO 1: Obtener HTML original completo
+        const response = await fetch(form.rutaHTML);
+        if (!response.ok) throw new Error('Error cargando HTML original');
+        const originalHTML_Full = await response.text();
+
+        // PASO 2: Parsear HTML original
+        const parser = new DOMParser();
+        const originalDoc = parser.parseFromString(originalHTML_Full, 'text/html');
+
+        // PASO 3: Capturar valores del modal (inputs llenados por el usuario)
+        const formData = {};
+        wrapper.querySelectorAll('input, textarea, select').forEach(input => {
+            if (input.id) {
+                formData[input.id] = input.value;
+            } else if (input.name) {
+                formData[input.name] = input.value;
+            }
+        });
+
+        // PASO 4: Insertar valores en el documento original
+        originalDoc.querySelectorAll('input, textarea, select').forEach(input => {
+            const key = input.id || input.name;
+            if (key && formData[key] !== undefined) {
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    input.checked = formData[key];
+                } else {
+                    input.value = formData[key];
+                    input.setAttribute('value', formData[key]);
+                }
+            }
+        });
+
+        // PASO 5: Crear contenedor temporal con HTML completo + CSS original
+        const pdfContainer = document.createElement('div');
+        pdfContainer.style.cssText = `
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 210mm;
+            background: white;
+            padding: 10mm;
+        `;
+
+        // Inyectar CSS original + HTML con valores
+        pdfContainer.innerHTML = `
+            <style>
+                ${form.cssOriginal}
+                
+                input, textarea, select {
+                    border: none !important;
+                    border-bottom: 1px solid #000 !important;
+                    background: transparent !important;
+                    font-family: inherit !important;
+                    font-size: inherit !important;
+                    color: #000 !important;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                }
+                
+                input[type="text"]:not(:placeholder-shown),
+                input[type="date"]:not(:placeholder-shown),
+                input[type="time"]:not(:placeholder-shown),
+                textarea:not(:placeholder-shown) {
+                    color: #000 !important;
+                    font-weight: normal;
+                }
+                
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+            </style>
+            ${originalDoc.body.innerHTML}
+        `;
+
+        document.body.appendChild(pdfContainer);
+
+        // PASO 6: Configurar html2pdf
+        const options = {
+            margin: [10, 10, 10, 10],
+            filename: `${form.nombre.replace(/\s+/g, '_')}_${Date.now()}.pdf`,
+            image: { 
+                type: 'jpeg', 
+                quality: 0.98 
+            },
+            html2canvas: { 
+                scale: 2,
+                useCORS: true,
+                letterRendering: true,
+                logging: false,
+                width: 794,
+                windowWidth: 794,
+                backgroundColor: '#ffffff'
+            },
+            jsPDF: { 
+                unit: 'mm', 
+                format: 'a4', 
+                orientation: 'portrait',
+                compress: true
+            },
+            pagebreak: { 
+                mode: ['avoid-all', 'css', 'legacy'] 
+            }
+        };
+
+        // PASO 7: Generar PDF
+        await html2pdf().set(options).from(pdfContainer).save();
+
+        // PASO 8: Limpiar
+        document.body.removeChild(pdfContainer);
+        
+        if (btn) {
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+        }
+
+        // Notificación
+        showNotification('PDF generado exitosamente', 'success');
+
+    } catch (error) {
+        console.error('Error exportando PDF:', error);
+        alert('Error al generar PDF: ' + error.message);
+        
+        if (evt?.target) {
+            const b = evt.target.closest('button');
+            if (b) {
+                b.disabled = false;
+                b.innerHTML = 'Exportar a PDF';
+            }
+        }
     }
-};
-
-// Generar PDF
-html2pdf()
-    .set(options)
-    .from(content)
-    .save()
-    .then(() => {
-        btn.innerHTML = originalHTML;
-        btn.disabled = false;
-        
-        // Mostrar notificación de éxito
-        const notification = document.createElement('div');
-        notification.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-[200] fade-in';
-        notification.innerHTML = '<i class="fa-solid fa-check-circle mr-2"></i>PDF generado exitosamente';
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    })
-    .catch(error => {
-        console.error('Error al generar PDF:', error);
-        btn.innerHTML = originalHTML;
-        btn.disabled = false;
-        alert('Error al generar el PDF. Por favor intente nuevamente.');
-    }); } 
+}
 
 
+// ==========================================
+// APLICAR ESTILOS UI PARA EDICIÓN
+// ==========================================
 
+function applyUIStyles(container) {
+    // Hacer todos los inputs editables y con estilos UI
+    container.querySelectorAll('input, textarea, select').forEach(input => {
+        input.classList.add('border', 'border-gray-300', 'rounded', 'px-2', 'py-1', 'focus:border-green-500', 'focus:outline-none');
+        input.style.width = '100%';
+        input.style.background = 'white';
+    });
 
+    // Estilizar tablas para el modal
+    container.querySelectorAll('table').forEach(table => {
+        table.classList.add('border-collapse', 'w-full', 'mb-4');
+        table.style.border = '2px solid #e5e7eb';
+    });
 
+    container.querySelectorAll('td, th').forEach(cell => {
+        cell.classList.add('border', 'border-gray-300', 'p-2');
+    });
 
+    container.querySelectorAll('th').forEach(th => {
+        th.classList.add('bg-gray-100', 'font-semibold');
+    });
+}
 
-
-
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    const bgColor = type === 'success' ? 'bg-green-600' : 'bg-red-600';
+    
+    notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-[200] fade-in`;
+    notification.innerHTML = `
+        <i class="fa-solid fa-${type === 'success' ? 'check' : 'exclamation'}-circle mr-2"></i>
+        ${message}
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
 
 
 
@@ -1422,155 +1364,53 @@ html2pdf()
 
 /* ---- 1) Función corregida: loadFormEditor (quita el selector con espacio y maneja html o ruta) */
 async function loadFormEditor(formKey) {
-  try {
-    const form = formulariosDB[formKey];
-    if (!form) {
-      console.error('Formulario no encontrado:', formKey);
-      return;
-    }
-
-    // Actualizar título del editor
-    const editorTitle = document.getElementById('editor-title');
-    if (editorTitle) editorTitle.innerHTML = `<i class="fa-solid ${form.icono} mr-2"></i>${form.nombre}`;
-
-    // Obtener contenido HTML: preferir form.html (in-memory) si existe, si no fetch rutaHTML
-    let bodyContent = '';
-    if (form.html) {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(form.html, 'text/html');
-      bodyContent = doc.body ? doc.body.innerHTML : form.html;
-    } else if (form.rutaHTML) {
-      const resp = await fetch(form.rutaHTML);
-      if (!resp.ok) throw new Error(`Error al cargar ${form.rutaHTML}: ${resp.status}`);
-      const htmlContent = await resp.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlContent, 'text/html');
-      bodyContent = doc.body ? doc.body.innerHTML : htmlContent;
-    } else {
-      throw new Error('No hay contenido para este formulario.');
-    }
-
-    // Buscar contenedor correcto (sin espacio en id)
-    const container = document.getElementById('form-content-container');
-    if (!container) {
-      console.error('Contenedor #form-content-container no encontrado en DOM.');
-      return;
-    }
-
-    container.innerHTML = `<div class="form-ui-wrapper" data-form-key="${formKey}">${bodyContent}</div>`;
-
-    // Aplicar estilos UI (si existe la función)
-    try { if (typeof applyUIStyles === 'function') applyUIStyles(container); } catch(e) { console.warn('applyUIStyles falló:', e); }
-
-    // Cerrar selector y abrir editor (si existen)
-    try { if (typeof closeFormSelector === 'function') closeFormSelector(); } catch(e){}
-    try { document.getElementById('form-editor-modal').classList.remove('hidden'); } catch(e){}
-
-  } catch (err) {
-    console.error('loadFormEditor error:', err);
-    alert('Error cargando formulario: ' + (err.message || err));
-  }
-}
-
-/* ---- 2) Función robusta de exportación a PDF (recibe evento; no depende de global `event`) 
-   - Cambia el onclick del botón export a: onclick="exportFormToPDF(event)" y añade data-export-btn
-*/
-async function exportFormToPDF(evt) {
-  try {
-    // Determinar botón de invocación
-    const e = evt || window.event || {};
-    let btn = null;
-    if (e && e.target) btn = e.target.closest ? e.target.closest('button') : null;
-    if (!btn) btn = document.querySelector('[data-export-btn]') || null;
-
-    // Marcar estado botón
-    const originalHTML = btn ? btn.innerHTML : null;
-    if (btn) { btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Generando PDF...'; btn.disabled = true; }
-
-    const container = document.getElementById('form-content-container');
-    if (!container) {
-      alert('No hay formulario cargado para exportar.');
-      if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
-      return;
-    }
-
-    const wrapper = container.querySelector('.form-ui-wrapper');
-    if (!wrapper) {
-      alert('El formulario no está listo para exportar.');
-      if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
-      return;
-    }
-
-    const formKey = wrapper.getAttribute('data-form-key');
-    const form = formulariosDB[formKey];
-    if (!form) {
-      alert('Formulario no identificado para exportar.');
-      if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
-      return;
-    }
-
-    // Clonar y limpiar clases UI
-    const cloned = wrapper.cloneNode(true);
-    cloned.querySelectorAll('*').forEach(el => el.removeAttribute('class'));
-
-    // Preparar contenedor temporal con CSS original del formulario (si viene en DB)
-    const pdfContainer = document.createElement('div');
-    pdfContainer.style.cssText = 'position: absolute; left: -9999px; top: 0; width: 210mm;';
-    const cssOriginal = form.cssOriginal || '';
-    pdfContainer.innerHTML = `<style>${cssOriginal} *{box-sizing:border-box;} input, textarea { border-bottom:1px solid #000 !important; background:transparent !important; }</style>` + cloned.innerHTML;
-    document.body.appendChild(pdfContainer);
-
-    // Opciones html2pdf (ajustables)
-    const options = {
-      margin: [10,10,10,10],
-      filename: `${(form.nombre||'formulario').replace(/\s+/g,'_')}_${Date.now()}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, letterRendering: true, logging:false, width:794, windowWidth:794 },
-      jsPDF: { unit:'mm', format:'a4', orientation:'portrait', compress:true }
-    };
-
-    await html2pdf().set(options).from(pdfContainer).save();
-
-    // limpiar
-    document.body.removeChild(pdfContainer);
-    if (btn) { btn.innerHTML = originalHTML; btn.disabled = false; }
-
-    // notificación básica
     try {
-      const n = document.createElement('div');
-      n.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-[200] fade-in';
-      n.innerHTML = '<i class="fa-solid fa-check-circle mr-2"></i>PDF generado exitosamente';
-      document.body.appendChild(n);
-      setTimeout(()=> n.remove(), 3000);
-    } catch(e){}
+        const form = formulariosDB[formKey];
+        if (!form) {
+            console.error('Formulario no encontrado:', formKey);
+            return;
+        }
 
-  } catch (err) {
-    console.error('exportFormToPDF error:', err);
-    alert('Error al generar PDF: ' + (err.message || err));
-    try { if (evt && evt.target) { const b = evt.target.closest('button'); if (b) { b.disabled = false; b.innerHTML = evt._orig || b.innerHTML; } } } catch(e){}
-  }
+        // Actualizar título
+        document.getElementById('editor-title').innerHTML = `
+            <i class="fa-solid ${form.icono} mr-2"></i>${form.nombre}
+        `;
+
+        // Cargar HTML desde la ruta
+        let htmlContent = '';
+        if (form.rutaHTML) {
+            const response = await fetch(form.rutaHTML);
+            if (!response.ok) throw new Error(`Error cargando ${form.rutaHTML}`);
+            htmlContent = await response.text();
+        } else if (form.html) {
+            htmlContent = form.html;
+        }
+
+        // Extraer solo el contenido del body
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, 'text/html');
+        const bodyContent = doc.body.innerHTML;
+
+        // Insertar en el contenedor con estilos UI
+        const container = document.getElementById('form-content-container');
+        container.innerHTML = `
+            <div class="form-ui-wrapper" data-form-key="${formKey}">
+                ${bodyContent}
+            </div>
+        `;
+
+        // Aplicar estilos UI para edición
+        applyUIStyles(container);
+
+        // Cerrar selector y abrir editor
+        closeFormSelector();
+        document.getElementById('form-editor-modal').classList.remove('hidden');
+
+    } catch (error) {
+        console.error('Error cargando formulario:', error);
+        alert('Error al cargar el formulario: ' + error.message);
+    }
 }
-
-/* ---- 3) Compatibilidad de cierre de modales: si hay llamadas a closeModal() no definidas, 
-         añadimos una función wrapper para evitar errores. */
-function closeModal(){
-  try { if (typeof closeFormEditor === 'function') closeFormEditor(); } catch(e){}
-  try { if (typeof closeFormSelector === 'function') closeFormSelector(); } catch(e){}
-  try { if (typeof closeFormModal === 'function') closeFormModal(); } catch(e){}
-}
-
-/* ---- 4) Seguridad: interceptar errores globales mínimos para no romper la app completa */
-window.addEventListener('error', function(evt) {
-  // evitar que un error no capturado detenga ejecución crítica; loguear en consola
-  console.warn('Error capturado (no fatal):', evt.message);
-  // no hacer preventDefault para no ocultar errores reales, pero previene fallos silentes
-});
-
-/* ---- 5) Nota: cambiar el atributo onclick del botón Exportar en el modal a:
-         onclick="exportFormToPDF(event)" y agregar el atributo data-export-btn
-   Ejemplo en HTML (reemplazar el botón actual):
-   <button onclick="exportFormToPDF(event)" data-export-btn class="...">Exportar a PDF</button>
-*/
 
 </script>
 
